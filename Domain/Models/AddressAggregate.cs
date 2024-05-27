@@ -7,24 +7,24 @@ public class AddressAggregate:BaseModel
         //only db
     }
 
-    private AddressAggregate(string street, string city, string state, string postalCode, string country, string addresName)
+    private AddressAggregate(string address, string addressName)
     {
-        Street = street;
-        City = city;
-        State = state;
-        PostalCode = postalCode;
-        Country = country;
-        AddresName = addresName;
+        Address=address;
+        AddressName = addressName;
     }
 
-    public string Street {get; set;}
-    public string City { get; set;}
-    public string State { get; set;}
-    public string PostalCode { get; set;}
-    public string Country { get; set;}
-    public string AddresName{ get; set;}
-    public static AddressAggregate Create(string street, string city, string state, string postalCode, string country, string addresName)
+    public string Address { get; set; }
+    public string AddressName{ get; set;}
+    public virtual UserAggregate User { get; set;}
+    public virtual List<OrderAggregate> Orders { get; set;}
+    public static AddressAggregate Create(string address, string addresName)
     {
-        return new AddressAggregate(street, city, state, postalCode, country, addresName);
+        return new AddressAggregate(address, addresName);
+    }
+    public AddressAggregate Update(string addressName, string address)
+    {
+        AddressName= addressName;
+        Address = address;
+        return this;
     }
 }

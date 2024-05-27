@@ -27,6 +27,10 @@ public  class UserAggregate:BaseModel
     public string Email { get; set; }
     public string Phone { get; set; }
     public DateTime CreatedDate { get; set; }
+    public virtual List<AddressAggregate> Addresses { get; set; }
+    public virtual List<OrderAggregate> Orders { get; set; }
+
+
     public static UserAggregate Create(string name,string lastName,string email,string phone)
     {
         return new UserAggregate(name,lastName,email,phone);

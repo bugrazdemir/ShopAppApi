@@ -3,7 +3,7 @@ using Application.Common.Interfaces;
 using MediatR;
 using System.Numerics;
 using System.Xml.Linq;
-namespace Application.AddPart.Commands;
+namespace Application.Features.User;
 
 public class AddUserCommand : IRequest<UserAggregate>
 {

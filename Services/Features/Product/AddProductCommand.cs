@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 using Domain.Models;
 using Application.Common.Interfaces;
 
-namespace Application.AddPart.Commands
+namespace Application.Features.Product
 {
     public class AddProductCommand : IRequest<ProductAggregate>
     {
-        public AddProductCommand(string productName, string description, double price, double quantity)
+        public AddProductCommand(string productName, string description, decimal price, decimal quantity)
         {
             ProductName = productName;
             Description = description;
             Price = price;
             Quantity = quantity;
-            ProductUploadDate= DateTime.Now;
+            ProductUploadDate = DateTime.Now;
         }
         public string ProductName { get; set; }
         public string Description { get; set; }
-        public double Price { get; set; }
-        public double Quantity { get; set; }
+        public decimal Price { get; set; }
+        public decimal Quantity { get; set; }
         public DateTime ProductUploadDate { get; set; }
 
         public class Handler : IRequestHandler<AddProductCommand, ProductAggregate>
@@ -43,7 +43,7 @@ namespace Application.AddPart.Commands
                     throw new Exception("PRODUCT_NAME_CANNOT_BE_EMPTY");
                 }
 
-                var product = ProductAggregate.Create(request.ProductName, request.Description, request.Price,request.Quantity);
+                var product = ProductAggregate.Create(request.ProductName, request.Description, request.Price, request.Quantity);
                 await _dbContext.Products.AddAsync(product, cancellationToken);
                 await _dbContext.SaveChangesAsync(cancellationToken);
 

@@ -6,7 +6,7 @@ public  class ProductAggregate : BaseModel
     {
         //only db
     }
-    private ProductAggregate(string productName, string description,double price,double quantity) 
+    private ProductAggregate(string productName, string description,decimal price,decimal quantity) 
     {
         ProductName = productName;
         Description = description;
@@ -16,11 +16,12 @@ public  class ProductAggregate : BaseModel
     }
     public string ProductName { get; set; }
     public string Description { get; set; }
-    public double Price { get; set; }
-    public double Quantity { get; set; }
+    public decimal  Price { get; set; }
+    public decimal  Quantity { get; set; }
     public DateTime ProductUploadDate { get; set;}
+    public virtual List<OrderAggregate> Orders { get; set; }
 
-    public static ProductAggregate Create(string productName, string  description, double price, double quantity)
+    public static ProductAggregate Create(string productName, string  description, decimal price, decimal quantity)
     {
         return new ProductAggregate(productName, description, price, quantity);
     }

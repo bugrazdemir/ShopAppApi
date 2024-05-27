@@ -6,7 +6,7 @@ public  class OrderAggregate:BaseModel
         //only db
     }
 
-    private OrderAggregate(string orderNumber, double totalAmount, double discountAmount, DateTime orderDate) 
+    private OrderAggregate(string orderNumber, decimal totalAmount, decimal discountAmount, DateTime orderDate) 
     {
         OrderNumber = orderNumber;
         TotalAmount = totalAmount;
@@ -15,12 +15,15 @@ public  class OrderAggregate:BaseModel
     }
 
     public string OrderNumber { get; set; }
-    public double TotalAmount { get; set; }
-    public double DiscountAmount { get; set; }
+    public decimal TotalAmount { get; set; }
+    public decimal DiscountAmount { get; set; }
     public DateTime OrderDate { get; set; }
-    public virtual List<UserAggregate> Users { get; set; }
+    public virtual List<ProductAggregate> Products { get; set; }
+    public virtual UserAggregate User { get; set; }
+    public AddressAggregate Address { get; set; }
 
-    public static OrderAggregate Create(string orderNumber, double totalAmount, double discountAmount, DateTime orderDate)
+
+    public static OrderAggregate Create(string orderNumber, decimal totalAmount, decimal discountAmount, DateTime orderDate)
     {
         return new OrderAggregate(orderNumber, totalAmount, discountAmount, orderDate);
     }
