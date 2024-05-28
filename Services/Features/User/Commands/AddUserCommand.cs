@@ -3,7 +3,8 @@ using Application.Common.Interfaces;
 using MediatR;
 using System.Numerics;
 using System.Xml.Linq;
-namespace Application.Features.User;
+using Application.Features.User.Commands.Validators;
+namespace Application.Features.User.Commands;
 
 public class AddUserCommand : IRequest<UserAggregate>
 {
@@ -35,16 +36,21 @@ public class AddUserCommand : IRequest<UserAggregate>
 
         public async Task<UserAggregate> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(request.Name))
+            var validator = new AddUserCommandValidator();
+            var validationResult=validator.Validate(request);
+            if (validationResult !=null) 
             {
-                throw new Exception("NAME_CANNOT_BE_EMPTY");
+                if (validationResult.IsValid == false)
+                {
+                    throw new Exception("Kullanıcı eklenırken hata oluştu.");
+                }
             }
 
-            var user = UserAggregate.Create(request.Name, request.LastName, request.Email, request.Phone);
-            await _dbContext.Users.AddAsync(user, cancellationToken);
+            var users = UserAggregate.Create(request.Name, request.LastName, request.Email, request.Phone);
+            await _dbContext.Users.AddAsync(users, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return user;
+            return users;
         }
     }
 }

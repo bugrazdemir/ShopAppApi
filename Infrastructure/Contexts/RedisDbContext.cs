@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using NRedisStack;
 
 namespace Infrastructure.Contexts;
 
@@ -16,7 +17,7 @@ public class RedisDbContext:IRedisDbContext
 
     public RedisDbContext()
     {
-        _connection = ConnectionMultiplexer.Connect("localhost");
+        _connection = ConnectionMultiplexer.Connect("redis://ShopApp:123456@localhost:6379");
         _database = _connection.GetDatabase();
     }
 

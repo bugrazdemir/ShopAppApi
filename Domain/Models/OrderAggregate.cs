@@ -19,7 +19,7 @@ public  class OrderAggregate:BaseModel
     public decimal DiscountAmount { get; set; }
     public DateTime OrderDate { get; set; }
     public virtual List<ProductAggregate> Products { get; set; }
-    public virtual UserAggregate User { get; set; }
+    public UserAggregate User { get; set; }
     public AddressAggregate Address { get; set; }
 
 
